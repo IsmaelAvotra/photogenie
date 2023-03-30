@@ -1,7 +1,7 @@
 import 'package:client_photogenie/providers/user_provider.dart';
 import 'package:client_photogenie/resources/auth_methods.dart';
-import 'package:client_photogenie/screens/home_screen.dart';
 import 'package:client_photogenie/screens/sign_in_screen.dart';
+import 'package:client_photogenie/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       title: 'Photogenie application',
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? const HomePage()
+          ? const BottomBar()
           : const SignInScreen(),
       debugShowCheckedModeBanner: false,
     );

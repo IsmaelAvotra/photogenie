@@ -4,6 +4,7 @@ import 'package:client_photogenie/models/user_model.dart';
 import 'package:client_photogenie/screens/confirm_phone_number.dart';
 import 'package:client_photogenie/screens/home_screen.dart';
 import 'package:client_photogenie/screens/sign_in_screen.dart';
+import 'package:client_photogenie/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -108,7 +109,7 @@ class Authmethods {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
-          Get.offAll(() => const HomePage());
+          Get.offAll(() => const BottomBar());
         },
       );
     } catch (e) {
@@ -203,7 +204,7 @@ class Authmethods {
   }
 
   //logout user
-  void logoutUser(BuildContext context) async {
+  logoutUser(BuildContext context) async {
     try {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();

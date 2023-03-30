@@ -76,6 +76,8 @@ flutter:
     - assets/icons/gmail.png
     - assets/icons/Country.png
     - assets/icons/Phone.png
+    - assets/icons/Vector.png
+    - assets/icons/Camera.png
     - assets/images/logo.png
     - assets/images/avatar.png
     - assets/images/facesimulation.png
