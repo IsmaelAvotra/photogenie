@@ -1,4 +1,4 @@
-import 'package:client_photogenie/screens/home_screen.dart';
+import 'package:client_photogenie/screens/gallery_screen.dart';
 import 'package:client_photogenie/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,11 +13,11 @@ class _BottomBarState extends State<BottomBar> {
   int _page = 0;
 
   final List<Widget> _pages = <Widget>[
-    const HomePage(),
+    const GalleryPage(),
     const Center(child: Text('Camera')),
-    const Center(child: Text('Add')),
+    const Center(child: Text('Add Photo')),
     const Center(child: Text('Retouch')),
-    const ProfileScreen(),
+    const ProfilePage(),
   ];
 
   void updatePage(int page) {
@@ -49,7 +49,7 @@ class _BottomBarState extends State<BottomBar> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
-            label: 'Add',
+            label: 'Add Photo',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.face_retouching_natural_outlined),

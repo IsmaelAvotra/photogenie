@@ -204,7 +204,7 @@ class Authmethods {
   }
 
   //logout user
-  logoutUser(BuildContext context) async {
+  void logoutUser(BuildContext context) async {
     try {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
