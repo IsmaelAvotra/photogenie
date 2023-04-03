@@ -2,7 +2,6 @@ import 'package:client_photogenie/resources/auth_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
-
 import '../providers/user_provider.dart';
 import "package:client_photogenie/constants/string_extension.dart";
 
@@ -103,7 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 30,
                 ),
                 SizedBox(
-                  width: 300,
+                  width: double.infinity,
                   height: 360,
                   child: Card(
                     shape: RoundedRectangleBorder(

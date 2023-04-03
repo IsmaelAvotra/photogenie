@@ -1,4 +1,3 @@
-import 'package:client_photogenie/screens/confirm_phone_number.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

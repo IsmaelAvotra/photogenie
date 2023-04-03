@@ -1,7 +1,6 @@
-import 'package:client_photogenie/screens/home_screen.dart';
+import 'package:client_photogenie/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
 class FaceSimulationScreen extends StatefulWidget {
@@ -100,7 +99,7 @@ class _FaceSimulationScreenState extends State<FaceSimulationScreen> {
                   height: 40,
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.to(const HomePage());
+                      Get.to(() => const BottomBar());
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xff0A2582),

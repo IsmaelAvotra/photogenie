@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:client_photogenie/constants/global_variables.dart';
 import 'package:client_photogenie/models/user_model.dart';
 import 'package:client_photogenie/screens/confirm_phone_number.dart';
-import 'package:client_photogenie/screens/home_screen.dart';
 import 'package:client_photogenie/screens/sign_in_screen.dart';
 import 'package:client_photogenie/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
@@ -148,7 +147,7 @@ class Authmethods {
         colorText: const Color(0xffFFFFFE),
       );
     } else {
-      Get.offAll(() => const HomePage());
+      Get.offAll(() => const BottomBar());
     }
   }
 

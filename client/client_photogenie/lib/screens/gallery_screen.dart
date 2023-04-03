@@ -1,7 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:client_photogenie/models/caroussel_model.dart';
+import 'package:client_photogenie/screens/photo_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../models/photo_model.dart';
 import '../widgets/category_caroussel.dart';
 
 class GalleryPage extends StatelessWidget {
@@ -39,19 +42,21 @@ class GalleryPage extends StatelessWidget {
                     crossAxisSpacing: 4.0,
                     mainAxisSpacing: 4.0),
                 itemBuilder: (BuildContext context, int index) {
-                  return Image.network(photos[index].imageUrl,
-                      fit: BoxFit.cover);
+                  return InkWell(
+                    onTap: () {
+                      Get.to(
+                        () => PhotoScreen(photo: photos[index]),
+                      );
+                    },
+                    child: Image.network(photos[index].imageUrl,
+                        fit: BoxFit.cover),
+                  );
                 },
               )),
             ],
           ),
         ));
   }
-}
-
-class Photo {
-  const Photo({required this.imageUrl});
-  final String imageUrl;
 }
 
 const List<Photo> photos = <Photo>[
