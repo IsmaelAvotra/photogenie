@@ -1,27 +1,24 @@
+import 'package:client_photogenie/resources/auth_methods.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:client_photogenie/screens/sign_up_screen.dart';
 import 'package:client_photogenie/widgets/text_button.dart';
 import 'package:client_photogenie/widgets/text_field_input.dart';
 import 'package:video_player/video_player.dart';
 
-import '../resources/auth_methods.dart';
-import 'forgot_password.dart';
-
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   late final VideoPlayerController _videoPlayerController;
+
   final Authmethods authmethods = Authmethods();
 
-  bool _isLoading = false;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -43,16 +40,17 @@ class _SignInScreenState extends State<SignInScreen> {
     _videoPlayerController.dispose();
   }
 
-  void signInUser() {
+  void updatePassword() {
     setState(() {
-      _isLoading = true;
+      isLoading = true;
     });
-    authmethods.signInUser(
+
+    authmethods.updatePassword(
         context: context,
         email: _emailController.text,
         password: _passwordController.text);
     setState(() {
-      _isLoading = false;
+      isLoading = false;
     });
   }
 
@@ -106,83 +104,19 @@ class _SignInScreenState extends State<SignInScreen> {
                 icon: 'password',
               ),
               const SizedBox(
-                height: 24,
-              ),
-              InkWell(
-                onTap: () {
-                  Get.to(() => const ForgotPasswordScreen());
-                },
-                child: const Text(
-                  'Forgot Password ?',
-                  style: TextStyle(color: Color(0xffFFFFFE)),
-                ),
-              ),
-              const SizedBox(
                 height: 30,
               ),
               //Login button
               ButtonText(
-                function: () {
-                  if (_emailController.text.isNotEmpty &&
-                      _passwordController.text.isNotEmpty) {
-                    signInUser();
-                  } else {
-                    Get.snackbar(
-                      'Error',
-                      'Please enter email and password',
-                      snackPosition: SnackPosition.BOTTOM,
-                      backgroundColor: const Color(0xff0F0E17),
-                      colorText: Colors.white,
-                    );
-                  }
-                },
-                text: 'Sign In',
+                function: updatePassword,
+                text: 'Update password',
                 width: 300,
-                isLoading: _isLoading,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: 300,
-                height: 42,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    authmethods.signInGoogle();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffFFFFFE),
-                  ),
-                  icon: Image.asset('assets/icons/gmail.png'),
-                  label: const Text(
-                    'Sign In with Google',
-                    style: TextStyle(color: Color(0xff0D0319)),
-                  ),
-                ),
+                isLoading: isLoading,
               ),
 
               const SizedBox(
                 height: 70,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Don't have an account ?",
-                    style: TextStyle(color: Color(0xffFFFFFE)),
-                  ),
-                  const SizedBox(width: 10),
-                  GestureDetector(
-                    onTap: () => Get.to(const SignUpScreen()),
-                    child: const Text(
-                      'Sign Up',
-                      style: TextStyle(
-                          color: Color(0xffAE2A58),
-                          fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              )
             ],
           ),
         ),

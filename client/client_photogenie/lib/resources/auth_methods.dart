@@ -202,6 +202,29 @@ class Authmethods {
     }
   }
 
+  //update password
+  void updatePassword(
+      {required String email,
+      required BuildContext context,
+      required String password}) async {
+    try {
+      var response = await http.patch(
+        Uri.parse('$uri/update/$email}'),
+        body: jsonEncode(<String, String>{
+          'password': password,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Get.offAll(() => const SignInScreen());
+      }
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+    }
+  }
+
   //logout user
   void logoutUser(BuildContext context) async {
     try {

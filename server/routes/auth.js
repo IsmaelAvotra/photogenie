@@ -111,6 +111,19 @@ authRouter.get('/', auth ,async(req,res)=>{
 });
 
 
+
+// //update password
+authRouter.patch('/update/:email',async(req,res)=>{
+try {
+  await User.findOneAndUpdate({email:req.params.email},{password:req.body.password},{new:true});
+  res.json({msg:"password updated successfully"})
+} catch (error) {
+  console.log(error.toString());
+}
+})
+
+
+
 // otpLogin = async (req, res, next) => {
 //   createOtp(req.body, (err, results) => {
 //     if (err) {
@@ -139,9 +152,4 @@ authRouter.get('/', auth ,async(req,res)=>{
 //     return res.status(200).send({ message: "Success", data: results });
 //   });
 // });
-
-
-
-
-
 module.exports = authRouter;

@@ -1,3 +1,4 @@
+import 'package:client_photogenie/screens/camera_screen.dart';
 import 'package:client_photogenie/screens/gallery_screen.dart';
 import 'package:client_photogenie/screens/pick_photo_screen.dart';
 import 'package:client_photogenie/screens/profile_screen.dart';
@@ -15,7 +16,7 @@ class _BottomBarState extends State<BottomBar> {
 
   final List<Widget> _pages = <Widget>[
     const GalleryPage(),
-    const Center(child: Text('Camera')),
+    const CameraScreen(),
     const ImageScreen(),
     const Center(child: Text('Retouch')),
     const ProfilePage(),

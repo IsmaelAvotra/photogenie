@@ -1,12 +1,15 @@
 import 'package:client_photogenie/providers/user_provider.dart';
 import 'package:client_photogenie/resources/auth_methods.dart';
 import 'package:client_photogenie/screens/sign_in_screen.dart';
+import 'package:client_photogenie/utils/locator.dart';
 import 'package:client_photogenie/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
   runApp(
     MultiProvider(
       providers: [

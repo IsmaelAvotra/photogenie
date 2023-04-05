@@ -9,4 +9,5 @@ class SignUpController extends GetxController {
   final TextEditingController firstnameController = TextEditingController();
   final TextEditingController lastnameController = TextEditingController();
   final TextEditingController birthdayController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
 }

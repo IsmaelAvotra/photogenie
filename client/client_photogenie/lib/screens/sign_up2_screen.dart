@@ -16,7 +16,6 @@ class SignUp2 extends StatefulWidget {
 }
 
 class _SignUp2State extends State<SignUp2> {
-  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   late final VideoPlayerController _videoPlayerController;
   bool _isLoading = false;
@@ -40,7 +39,6 @@ class _SignUp2State extends State<SignUp2> {
 
   @override
   void dispose() {
-    _usernameController.dispose();
     _phoneController.dispose();
     super.dispose();
   }
@@ -61,7 +59,7 @@ class _SignUp2State extends State<SignUp2> {
     setState(() {
       _isLoading = true;
     });
-    if (_usernameController.text.isNotEmpty &&
+    if (c.usernameController.text.isNotEmpty &&
         _phoneController.text.isNotEmpty &&
         selectCountry != 'Select your country') {
       authmethods.signUpUser(
@@ -73,7 +71,7 @@ class _SignUp2State extends State<SignUp2> {
         email: c.emailController.text,
         country: selectCountry,
         phone: '+$codeCountry ${_phoneController.text}',
-        username: _usernameController.text,
+        username: c.usernameController.text,
       );
     } else {
       Get.snackbar(
@@ -131,7 +129,7 @@ class _SignUp2State extends State<SignUp2> {
               TextFieldInput(
                 hintText: 'Your username',
                 textInputType: TextInputType.text,
-                textEditingController: _usernameController,
+                textEditingController: c.usernameController,
                 icon: 'Person',
               ),
               const SizedBox(
