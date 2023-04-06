@@ -117,7 +117,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   Stack(
                     children: [
                       Text(
-                        user.username,
+                        c.usernameController.text.isEmpty
+                            ? user.username
+                            : c.usernameController.text,
                         style: const TextStyle(
                             color: Color(0xff3CF0DB),
                             fontSize: 20,
@@ -142,11 +144,14 @@ class _ProfilePageState extends State<ProfilePage> {
                             )
                           : const SizedBox(),
                       isEditingUsername
-                          ? TextFieldInput(
-                              textEditingController: c.usernameController,
-                              hintText: 'Enter your new username',
-                              textInputType: TextInputType.text,
-                              icon: 'Person')
+                          ? SizedBox(
+                              height: 40,
+                              child: TextFieldInput(
+                                  textEditingController: c.usernameController,
+                                  hintText: 'Enter your new username',
+                                  textInputType: TextInputType.text,
+                                  icon: 'Person'),
+                            )
                           : const SizedBox()
                     ],
                   ),

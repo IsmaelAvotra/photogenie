@@ -32,37 +32,39 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_page],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _page,
-        selectedItemColor: const Color(0xffAE2A58),
-        unselectedItemColor: const Color(0xffFFFFFE),
-        backgroundColor: const Color(0xff0F0E17),
-        iconSize: 25,
-        onTap: updatePage,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.photo_library),
-            label: 'Album',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt),
-            label: 'Camera',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Add Photo',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.face_retouching_natural_outlined),
-            label: 'Retouch',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.portrait_rounded),
-            label: 'Profile',
-          ),
-        ],
-      ),
+      bottomNavigationBar: _page != 1
+          ? BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              currentIndex: _page,
+              selectedItemColor: const Color(0xffAE2A58),
+              unselectedItemColor: const Color(0xffFFFFFE),
+              backgroundColor: const Color(0xff0F0E17),
+              iconSize: 25,
+              onTap: updatePage,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.photo_library),
+                  label: 'Album',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.camera_alt),
+                  label: 'Camera',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.add),
+                  label: 'Add Photo',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.face_retouching_natural_outlined),
+                  label: 'Retouch',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.portrait_rounded),
+                  label: 'Profile',
+                ),
+              ],
+            )
+          : const SizedBox(),
     );
   }
 }

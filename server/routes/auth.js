@@ -111,16 +111,91 @@ authRouter.get('/', auth ,async(req,res)=>{
 });
 
 
+ //update password
+authRouter.post('/forgot-password',async(req,res)=>{
+ const {email}=req.body;
 
-// //update password
-authRouter.patch('/update/:email',async(req,res)=>{
-try {
-  await User.findOneAndUpdate({email:req.params.email},{password:req.body.password},{new:true});
-  res.json({msg:"password updated successfully"})
-} catch (error) {
-  console.log(error.toString());
+//check if user exists
+const user = await User.findOne({ email });
+if(!user){
+  console.log("User with this email does not exist!");
+  return res.status(400).json({ msg: "User with this email does not exist!" });
+}else{
+ //user exist then send a onetime password link to the user email 
+ const secret ='passwordKey' + user.password;
+  const payload = {
+    email: user.email,  
+    id: user._id,
+  };
+ const token = jwt.sign(payload,secret,{expiresIn:'15m'});
+  const link = `http://localhost:3000/reset-password/${user._id}/${token}`;
+  console.log(link);
 }
+ 
 })
+
+authRouter.get('/reset-password/:id/:token',async(req,res)=>{
+  const {id,token}=req.params;
+  //check if user id exists
+  const user = await User.findOne({ id });
+  if(!user){
+    console.log("User with this id does not exist!");
+    return res.status(400).json({ msg: "User with this id does not exist!" });
+  }else{
+    //user exist then check if token is valid
+    const secret ='passwordKey' + user.password;
+    try{
+      const payload = jwt.verify(token,secret);
+     
+    }catch(error){
+      console.log(error.toString());
+    }
+  }
+})
+
+authRouter.post('/reset-password/:id/:token',async(req,res)=>{
+  const {id,token}=req.params;
+  const {password}=req.body;
+  const user = await User.findOne({ id });
+  if(!user){
+    console.log("User with this id does not exist!");
+    return res.status(400).json({ msg: "User with this id does not exist!" });
+  }else{
+    //user exist then check if token is valid
+    const secret ='passwordKey' + user.password;
+    try{
+      const payload = jwt.verify(token,secret);
+      //update password
+      const hashedPassword = await bcryptjs.hash(password, 8);
+      payload.password=hashedPassword;
+      await user.save();
+      res.json(user);
+    }catch(error){
+      console.log(error.toString());
+    }
+  }
+})
+
+
+//update username
+authRouter.post('/update-username',async(req,res)=>{
+ const {username}=req.body;
+ const user = await User.findOne({ username });
+ 
+})
+
+
+
+
+
+
+// authRouter.patch('/update/:email',async(req,res)=>{
+// try {
+//  User.findOneAndUpdate({email:req.params.email},{$set:{password:req.body.password}},{})
+// } catch (error) {
+//   console.log(error.toString());
+// }
+// })
 
 
 

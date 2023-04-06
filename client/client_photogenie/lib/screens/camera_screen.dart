@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../widgets/bottom_bar.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({Key? key}) : super(key: key);
@@ -50,18 +51,33 @@ class _CameraScreenState extends State<CameraScreen> {
   Widget build(BuildContext context) {
     if (cameraController.value.isInitialized) {
       return Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              Get.offAll(() => const BottomBar());
+            },
+          ),
+        ),
+        backgroundColor: const Color(0xff0F0E17),
         body: Stack(
           children: [
             CameraPreview(cameraController),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  direction = direction == 0 ? 1 : 0;
-                  startCamera(direction);
-                });
-              },
-              child:
-                  button(Icons.flip_camera_ios_outlined, Alignment.bottomLeft),
+            Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    direction = direction == 0 ? 1 : 0;
+                    startCamera(direction);
+                  });
+                },
+                child: button(
+                    Icons.flip_camera_ios_outlined, Alignment.bottomLeft),
+              ),
             ),
             GestureDetector(
               onTap: () {
@@ -74,6 +90,22 @@ class _CameraScreenState extends State<CameraScreen> {
                 });
               },
               child: button(Icons.camera_alt_outlined, Alignment.bottomCenter),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: GestureDetector(
+                onTap: () {
+                  cameraController.takePicture().then((XFile? file) {
+                    if (mounted) {
+                      if (file != null) {
+                        Get.snackbar(
+                            'Success', "Picture saved to ${file.path}");
+                      }
+                    }
+                  });
+                },
+                child: button(Icons.photo, Alignment.bottomRight),
+              ),
             ),
           ],
         ),
@@ -95,19 +127,12 @@ class _CameraScreenState extends State<CameraScreen> {
         width: 50,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              offset: Offset(2, 2),
-              blurRadius: 10,
-            ),
-          ],
+          color: Colors.white54,
         ),
         child: Center(
           child: Icon(
             icon,
-            color: Colors.black54,
+            color: const Color(0xff0F0E17),
           ),
         ),
       ),

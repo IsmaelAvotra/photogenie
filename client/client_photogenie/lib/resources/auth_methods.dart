@@ -203,25 +203,45 @@ class Authmethods {
   }
 
   //update password
-  void updatePassword(
-      {required String email,
-      required BuildContext context,
-      required String password}) async {
+  void updatePassword({
+    required context,
+    required String email,
+    // required String newPassword,
+  }) async {
     try {
-      var response = await http.patch(
-        Uri.parse('$uri/update/$email}'),
+      http.Response res = await http.post(
+        Uri.parse('$uri/forgot-password'),
         body: jsonEncode(<String, String>{
-          'password': password,
+          'email': email,
         }),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        Get.offAll(() => const SignInScreen());
-      }
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          Provider.of<UserProvider>(context, listen: false).setUser(res.body);
+          await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
+          Get.offAll(() => const BottomBar());
+        },
+      );
     } catch (e) {
-      Get.snackbar('Error', e.toString());
+      Get.snackbar(
+        'About update password',
+        e.toString(),
+        backgroundColor: const Color(0xff0F0E17),
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: const Text(
+          'About update password',
+          style: TextStyle(
+              color: Color.fromARGB(255, 231, 224, 233),
+              fontWeight: FontWeight.bold),
+        ),
+        colorText: const Color(0xffFFFFFE),
+      );
     }
   }
 

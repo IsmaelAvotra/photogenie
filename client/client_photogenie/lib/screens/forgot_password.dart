@@ -46,9 +46,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     });
 
     authmethods.updatePassword(
-        context: context,
-        email: _emailController.text,
-        password: _passwordController.text);
+      context: context,
+      email: _emailController.text,
+    );
     setState(() {
       isLoading = false;
     });
