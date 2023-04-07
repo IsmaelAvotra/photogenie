@@ -5,6 +5,9 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../middlewares/auth");
 
+const{sendCode, verifyCode} = require('../Controllers/userController')
+
+
 
 //signup
 authRouter.post("/api/signup", async (req, res) => {
@@ -26,7 +29,7 @@ authRouter.post("/api/signup", async (req, res) => {
     if (existinguser) {
       return res
         .status(400)
-        .json({ msg: "User with same email is already exists!" });
+        .json({ msg: "User with same email already exists!" });
     }
 
     const hashedPassword = await bcryptjs.hash(password, 8);
@@ -50,7 +53,8 @@ authRouter.post("/api/signup", async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
-
+//sendCode
+authRouter.route("/api/sendCode").post(sendCode);
 //signin
 authRouter.post("/api/signin", async (req, res) => {
   try {
