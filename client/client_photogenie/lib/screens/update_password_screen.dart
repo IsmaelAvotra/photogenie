@@ -1,22 +1,19 @@
-import 'package:client_photogenie/resources/auth_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:client_photogenie/widgets/text_button.dart';
 import 'package:client_photogenie/widgets/text_field_input.dart';
 import 'package:video_player/video_player.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({super.key});
+class UpdatePasswordScreen extends StatefulWidget {
+  const UpdatePasswordScreen({super.key});
 
   @override
-  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+  State<UpdatePasswordScreen> createState() => _UpdatePasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   late final VideoPlayerController _videoPlayerController;
-
-  final Authmethods authmethods = Authmethods();
 
   bool isLoading = false;
 
@@ -38,20 +35,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _videoPlayerController.dispose();
-  }
-
-  void updatePassword() {
-    setState(() {
-      isLoading = true;
-    });
-
-    authmethods.updatePassword(
-      context: context,
-      email: _emailController.text,
-    );
-    setState(() {
-      isLoading = false;
-    });
   }
 
   @override
@@ -77,7 +60,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 70,
+                height: 100,
               ),
               Image.asset(
                 'assets/images/logo.png',
@@ -85,32 +68,32 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 height: 230,
               ),
               const SizedBox(
-                height: 60,
+                height: 80,
               ),
               TextFieldInput(
-                hintText: 'Enter your email',
+                hintText: 'Enter your new password',
                 textInputType: TextInputType.emailAddress,
                 textEditingController: _emailController,
-                icon: 'email',
+                icon: 'password',
               ),
               const SizedBox(
                 height: 24,
               ),
               TextFieldInput(
-                hintText: 'Enter your password',
-                textInputType: TextInputType.text,
-                textEditingController: _passwordController,
-                isPass: true,
+                hintText: 'Confirm your new password',
+                textInputType: TextInputType.emailAddress,
+                textEditingController: _emailController,
                 icon: 'password',
               ),
+
               const SizedBox(
                 height: 30,
               ),
               //Login button
               ButtonText(
-                function: updatePassword,
-                text: 'Update password',
-                width: 300,
+                function: () {},
+                text: 'Update Password',
+                width: 240,
                 isLoading: isLoading,
               ),
 

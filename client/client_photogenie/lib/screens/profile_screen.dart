@@ -70,47 +70,58 @@ class _ProfilePageState extends State<ProfilePage> {
                         width: 60,
                       ),
                       SizedBox(
-                        width: 80,
+                        width: 110,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            backgroundColor: const Color(0xffAE2A58),
+                            foregroundColor: !isEditing
+                                ? const Color(0xffAE2A58)
+                                : const Color(0xFFFFFFFE),
+                            backgroundColor: !isEditing
+                                ? const Color(0xccFFFFFE)
+                                : const Color(0xff2BA021),
                             shape: const RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                                  BorderRadius.all(Radius.circular(8)),
                             ),
                           ),
                           onPressed: () {
-                            authmethods.logoutUser(context);
+                            // authmethods.logoutUser(context);
+                            setState(() {
+                              isEditing = !isEditing;
+                            });
                           },
-                          child: const Text('Logout'),
+                          child: !isEditing
+                              ? const Text('Edit profile')
+                              : const Text('Save profile'),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 40),
-                  Stack(
-                    children: [
-                      CircleAvatar(
-                        maxRadius: 45,
-                        child: Image.asset(
-                          'assets/images/profile.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      isEditing
-                          ? const Positioned(
-                              bottom: 0,
-                              right: 0,
-                              child: Icon(
-                                Icons.add_a_photo_outlined,
-                                color: Color(0xffAE2A58),
-                                size: 18,
+                  !isEditing
+                      ? Stack(
+                          children: [
+                            CircleAvatar(
+                              maxRadius: 45,
+                              child: Image.asset(
+                                'assets/images/profile.png',
+                                fit: BoxFit.cover,
                               ),
-                            )
-                          : const SizedBox(),
-                    ],
-                  ),
+                            ),
+                            isEditing
+                                ? const Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: Icon(
+                                      Icons.add_a_photo_outlined,
+                                      color: Color(0xffAE2A58),
+                                      size: 18,
+                                    ),
+                                  )
+                                : const SizedBox(),
+                          ],
+                        )
+                      : const SizedBox(),
                   const SizedBox(
                     height: 16,
                   ),

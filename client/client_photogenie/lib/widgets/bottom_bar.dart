@@ -14,6 +14,7 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int _page = 0;
+  bool _isEditing = false;
 
   final List<Widget> _pages = <Widget>[
     const GalleryPage(),

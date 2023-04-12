@@ -5,7 +5,8 @@ class EmailVerificationScreen extends StatefulWidget {
   const EmailVerificationScreen({super.key});
 
   @override
-  State<EmailVerificationScreen> createState() => _EmailVerificationScreenState();
+  State<EmailVerificationScreen> createState() =>
+      _EmailVerificationScreenState();
 }
 
 class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
@@ -53,16 +54,59 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 70,
+                height: 100,
               ),
               Image.asset(
-                'assets/images/logo.png',
-                width: 170,
-                height: 230,
+                'assets/images/email.png',
+                width: 280,
+                height: 300,
               ),
               const SizedBox(
-                height: 60,
+                height: 25,
               ),
+              const Text(
+                'Verify your email',
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xfffffffe)),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'We have sent a verification link on your , \n email, please click on this link to confirm \n your genie identity.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 15, color: Color(0xccfffffe), height: 1.25),
+              ),
+              const SizedBox(height: 5),
+              const SizedBox(
+                height: 20,
+                width: 100,
+                child: Divider(
+                  color: Color(0xfffffffe),
+                  height: 10,
+                ),
+              ),
+              const SizedBox(height: 60),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Verification with phone?',
+                    style: TextStyle(
+                        fontSize: 14, color: Color(0xfffffffe), height: 1.25),
+                  ),
+                  const SizedBox(width: 2),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Send Code',
+                      style: TextStyle(
+                          fontSize: 14, color: Color(0xffAE2A58), height: 1.25),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

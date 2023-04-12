@@ -6,7 +6,7 @@ import 'package:client_photogenie/widgets/text_field_input.dart';
 import 'package:video_player/video_player.dart';
 
 import '../resources/auth_methods.dart';
-import 'forgot_password.dart';
+import 'email_forgot_password.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -110,7 +110,7 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               InkWell(
                 onTap: () {
-                  Get.to(() => const ForgotPasswordScreen());
+                  Get.to(() => const EmailForgotPasswordScreen());
                 },
                 child: const Text(
                   'Forgot Password ?',
