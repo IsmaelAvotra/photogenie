@@ -189,13 +189,13 @@ authRouter.post('/update-username',async(req,res)=>{
 
 
 
-// authRouter.patch('/update/:email',async(req,res)=>{
-// try {
-//  User.findOneAndUpdate({email:req.params.email},{$set:{password:req.body.password}},{})
-// } catch (error) {
-//   console.log(error.toString());
-// }
-// })
+authRouter.patch('/update/:email',async(req,res)=>{
+try {
+ User.findOneAndUpdate({email:req.params.email},{$set:{password:req.body.password}},{})
+} catch (error) {
+  console.log(error.toString());
+}
+})
 
 
 
@@ -218,7 +218,7 @@ authRouter.post('/update-username',async(req,res)=>{
 //   });
 // }
 
-//otp login
+// //otp login
 // authrouter.post('/otpLogin',otpLogin = async (req, res, next) => {
 //   createOtp(req.body, (err, results) => {
 //     if (err) {

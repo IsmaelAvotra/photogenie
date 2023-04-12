@@ -1,7 +1,6 @@
 import 'package:client_photogenie/screens/create_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:video_player/video_player.dart';
 import 'package:client_photogenie/utils/utils.dart';
