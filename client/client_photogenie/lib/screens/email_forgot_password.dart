@@ -43,6 +43,19 @@ class _EmailForgotPasswordScreenState extends State<EmailForgotPasswordScreen> {
     _videoPlayerController.dispose();
   }
 
+  void forgotPassword() {
+    setState(() {
+      isLoading = true;
+    });
+    authmethods.forgotPassword(
+      context: context,
+      email: _emailController.text,
+    );
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,7 +125,7 @@ class _EmailForgotPasswordScreenState extends State<EmailForgotPasswordScreen> {
               //Login button
               ButtonText(
                 function: () {
-                  Get.to(() => const ConfirmIdentity());
+                  forgotPassword();
                 },
                 text: 'Confirm email',
                 width: 240,

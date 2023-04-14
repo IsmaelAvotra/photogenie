@@ -4,6 +4,7 @@ import 'package:client_photogenie/screens/pick_photo_screen.dart';
 import 'package:client_photogenie/screens/profile_screen.dart';
 import 'package:client_photogenie/screens/ready_player.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
@@ -12,9 +13,10 @@ class BottomBar extends StatefulWidget {
   State<BottomBar> createState() => _BottomBarState();
 }
 
+late final SharedPreferences prefs;
+
 class _BottomBarState extends State<BottomBar> {
   int _page = 0;
-  bool _isEditing = false;
 
   final List<Widget> _pages = <Widget>[
     const GalleryPage(),

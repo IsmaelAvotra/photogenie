@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:client_photogenie/constants/global_variables.dart';
 import 'package:client_photogenie/models/user_model.dart';
+import 'package:client_photogenie/screens/confirm_identity.dart';
 import 'package:client_photogenie/screens/confirm_phone_number.dart';
-import 'package:client_photogenie/screens/ready_player.dart';
 import 'package:client_photogenie/screens/sign_in_screen.dart';
 import 'package:client_photogenie/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
@@ -203,15 +203,14 @@ class Authmethods {
     }
   }
 
-  //update password
-  void updatePassword({
+  //forgot password
+  void forgotPassword({
     required context,
     required String email,
-    // required String newPassword,
   }) async {
     try {
       http.Response res = await http.post(
-        Uri.parse('$uri/forgot-password'),
+        Uri.parse('$uri/api/requestPasswordResetByDigits'),
         body: jsonEncode(<String, String>{
           'email': email,
         }),
@@ -219,24 +218,35 @@ class Authmethods {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
+
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () async {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          Provider.of<UserProvider>(context, listen: false).setUser(res.body);
-          await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
-          Get.offAll(() => const BottomBar());
+          Get.snackbar(
+            'About forgot password',
+            "Check your email",
+            backgroundColor: const Color(0xff0F0E17),
+            snackPosition: SnackPosition.BOTTOM,
+            titleText: const Text(
+              'Forgot password',
+              style: TextStyle(
+                  color: Color.fromARGB(255, 231, 224, 233),
+                  fontWeight: FontWeight.bold),
+            ),
+            colorText: const Color(0xffFFFFFE),
+          );
+          Get.offAll(() => const ConfirmIdentity());
         },
       );
     } catch (e) {
       Get.snackbar(
-        'About update password',
+        'Error',
         e.toString(),
         backgroundColor: const Color(0xff0F0E17),
         snackPosition: SnackPosition.BOTTOM,
         titleText: const Text(
-          'About update password',
+          'Error',
           style: TextStyle(
               color: Color.fromARGB(255, 231, 224, 233),
               fontWeight: FontWeight.bold),

@@ -1,4 +1,5 @@
 import 'package:client_photogenie/resources/auth_methods.dart';
+import 'package:client_photogenie/widgets/text_button.dart';
 import 'package:client_photogenie/widgets/text_field_input.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -125,206 +126,255 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(
                     height: 16,
                   ),
-                  Stack(
-                    children: [
-                      Text(
-                        c.usernameController.text.isEmpty
-                            ? user.username
-                            : c.usernameController.text,
-                        style: const TextStyle(
-                            color: Color(0xff3CF0DB),
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      isEditing
-                          ? Positioned(
-                              top: 0,
-                              right: 0,
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isEditingUsername = !isEditingUsername;
-                                  });
-                                },
-                                child: const Icon(
-                                  Icons.edit,
-                                  color: Color(0xffAE2A58),
-                                  size: 18,
-                                ),
-                              ),
-                            )
-                          : const SizedBox(),
-                      isEditingUsername
-                          ? SizedBox(
-                              height: 40,
-                              child: TextFieldInput(
-                                  textEditingController: c.usernameController,
-                                  hintText: 'Enter your new username',
-                                  textInputType: TextInputType.text,
-                                  icon: 'Person'),
-                            )
-                          : const SizedBox()
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 360,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: Colors.white70, width: 1),
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      color: Colors.transparent,
-                      elevation: 5,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                width: 32,
-                              ),
-                              Icon(
-                                Icons.person,
-                                color: Colors.white.withOpacity(.8),
-                                size: 28,
-                              ),
-                              const SizedBox(
-                                width: 6,
-                              ),
-                              Text(
-                                '${user.name.capitalizeString()} ${user.lastname.capitalizeString()}',
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                width: 32,
-                              ),
-                              Icon(
-                                Icons.email_outlined,
-                                color: Colors.white.withOpacity(.8),
-                                size: 28,
-                              ),
-                              const SizedBox(
-                                width: 6,
-                              ),
-                              Text(
-                                user.email,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                width: 32,
-                              ),
-                              Icon(
-                                Icons.calendar_month_rounded,
-                                color: Colors.white.withOpacity(.8),
-                                size: 28,
-                              ),
-                              const SizedBox(
-                                width: 6,
-                              ),
-                              Text(
-                                user.birthday,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                width: 32,
-                              ),
-                              Icon(
-                                Icons.phone,
-                                color: Colors.white.withOpacity(.8),
-                                size: 28,
-                              ),
-                              const SizedBox(
-                                width: 6,
-                              ),
-                              Text(
-                                user.phone,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 40),
-                          ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                isEditing = !isEditing;
-                                isEditingUsername = false;
-                              });
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              shape: RoundedRectangleBorder(
-                                side: const BorderSide(
-                                    color: Color.fromARGB(255, 167, 145, 153),
-                                    width: 0.6),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
+                  !isEditing
+                      ? Stack(
+                          children: [
+                            Text(
+                              c.usernameController.text.isEmpty
+                                  ? user.username
+                                  : c.usernameController.text,
+                              style: const TextStyle(
+                                  color: Color(0xff3CF0DB),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600),
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
+                            isEditing
+                                ? Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isEditingUsername =
+                                              !isEditingUsername;
+                                        });
+                                      },
+                                      child: const Icon(
+                                        Icons.edit,
+                                        color: Color(0xffAE2A58),
+                                        size: 18,
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox(),
+                            isEditingUsername
+                                ? SizedBox(
+                                    height: 40,
+                                    child: TextFieldInput(
+                                        textEditingController:
+                                            c.usernameController,
+                                        hintText: 'Enter your new username',
+                                        textInputType: TextInputType.text,
+                                        icon: 'Person'),
+                                  )
+                                : const SizedBox()
+                          ],
+                        )
+                      : const SizedBox(),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  !isEditing
+                      ? SizedBox(
+                          width: double.infinity,
+                          height: 360,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              side: const BorderSide(
+                                  color: Colors.white70, width: 1),
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            color: Colors.transparent,
+                            elevation: 5,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  isEditing ? 'Save' : 'Edit Profile',
-                                  style: TextStyle(
-                                      color: isEditing
-                                          ? const Color(0xff3CF0DB)
-                                          : const Color(0xffAE2A58),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      width: 32,
+                                    ),
+                                    Icon(
+                                      Icons.person,
+                                      color: Colors.white.withOpacity(.8),
+                                      size: 28,
+                                    ),
+                                    const SizedBox(
+                                      width: 6,
+                                    ),
+                                    Text(
+                                      '${user.name.capitalizeString()} ${user.lastname.capitalizeString()}',
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(
-                                  width: 5,
+                                const SizedBox(height: 16),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      width: 32,
+                                    ),
+                                    Icon(
+                                      Icons.email_outlined,
+                                      color: Colors.white.withOpacity(.8),
+                                      size: 28,
+                                    ),
+                                    const SizedBox(
+                                      width: 6,
+                                    ),
+                                    Text(
+                                      user.email,
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
                                 ),
-                                Icon(
-                                  isEditing
-                                      ? Icons.download_done_outlined
-                                      : Icons.edit_note_outlined,
-                                  color: isEditing
-                                      ? const Color(0xff3CF0DB)
-                                      : const Color(0xffAE2A58),
-                                  size: 24.0,
+                                const SizedBox(height: 16),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      width: 32,
+                                    ),
+                                    Icon(
+                                      Icons.calendar_month_rounded,
+                                      color: Colors.white.withOpacity(.8),
+                                      size: 28,
+                                    ),
+                                    const SizedBox(
+                                      width: 6,
+                                    ),
+                                    Text(
+                                      user.birthday,
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
                                 ),
+                                const SizedBox(height: 16),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      width: 32,
+                                    ),
+                                    Icon(
+                                      Icons.phone,
+                                      color: Colors.white.withOpacity(.8),
+                                      size: 28,
+                                    ),
+                                    const SizedBox(
+                                      width: 6,
+                                    ),
+                                    Text(
+                                      user.phone,
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 40),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isEditing = !isEditing;
+                                      isEditingUsername = false;
+                                    });
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                      side: const BorderSide(
+                                          color: Color.fromARGB(
+                                              255, 167, 145, 153),
+                                          width: 0.6),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        isEditing ? 'Save' : 'Edit Profile',
+                                        style: TextStyle(
+                                            color: isEditing
+                                                ? const Color(0xff3CF0DB)
+                                                : const Color(0xffAE2A58),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Icon(
+                                        isEditing
+                                            ? Icons.download_done_outlined
+                                            : Icons.edit_note_outlined,
+                                        color: isEditing
+                                            ? const Color(0xff3CF0DB)
+                                            : const Color(0xffAE2A58),
+                                        size: 24.0,
+                                      ),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
+                          ),
+                        )
+                      : Column(
+                          children: [
+                            TextFieldInput(
+                                textEditingController: c.firstnameController,
+                                hintText: 'Firstname',
+                                textInputType: TextInputType.text,
+                                icon: 'Person'),
+                            const SizedBox(height: 16),
+                            TextFieldInput(
+                                textEditingController: c.lastnameController,
+                                hintText: 'Lastname',
+                                textInputType: TextInputType.text,
+                                icon: 'Person'),
+                            const SizedBox(height: 16),
+                            TextFieldInput(
+                                textEditingController: c.emailController,
+                                hintText: 'Your email',
+                                textInputType: TextInputType.text,
+                                icon: 'email'),
+                            const SizedBox(height: 16),
+                            TextFieldInput(
+                                textEditingController: c.birthdayController,
+                                hintText: 'Your birthday',
+                                textInputType: TextInputType.text,
+                                icon: 'calendar'),
+                            const SizedBox(height: 16),
+                            TextFieldInput(
+                                textEditingController: c.passwordController,
+                                hintText: 'Your password',
+                                textInputType: TextInputType.text,
+                                icon: 'password'),
+                            const SizedBox(height: 32),
+                            ButtonText(
+                                function: () {
+                                  // Get.to(() =>  ReadyPlayerMe());
+                                  authmethods.logoutUser(context);
+                                },
+                                text: 'Edit avatar',
+                                isLoading: false,
+                                width: 240)
+                          ],
+                        ),
                 ],
               ),
             ),

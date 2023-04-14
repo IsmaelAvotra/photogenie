@@ -19,6 +19,7 @@
           Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
         font-size: 14px;
         border: none;
+        background-color: #0f0e17;
       }
     </style>
   </head>
@@ -29,10 +30,9 @@
       allow="camera *; microphone *; clipboard-write"
     ></iframe>
     <script>
-      // const subdomain = "awsomeavatar"; // Replace with your custom subdomain
       const frame = document.getElementById("frame");
 
-      frame.src = `https://demo.readyplayer.me/avatar?frameApi`;
+      frame.src = `https://awsomeavatar.readyplayer.me/avatar?frameApi`;
 
       window.addEventListener("message", subscribe);
       document.addEventListener("message", subscribe);
@@ -58,7 +58,6 @@
 
         // Get avatar GLB URL
         if (json.eventName === "v1.avatar.exported") {
-          console.log(`Avatar URL: ${json.data.url}`);
           AvatarCreated.postMessage(JSON.stringify(json));
           document.getElementById("frame").hidden = true;
         }
