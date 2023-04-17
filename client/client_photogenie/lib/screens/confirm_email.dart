@@ -1,3 +1,4 @@
+import 'package:client_photogenie/controllers/sign_up_controller.dart';
 import 'package:client_photogenie/screens/create_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,15 +6,20 @@ import 'package:pinput/pinput.dart';
 import 'package:video_player/video_player.dart';
 import 'package:client_photogenie/utils/utils.dart';
 
-class ConfirmNumber extends StatefulWidget {
-  const ConfirmNumber({super.key});
+import '../resources/auth_methods.dart';
+
+class ConfirmEmail extends StatefulWidget {
+  const ConfirmEmail({super.key});
 
   @override
-  State<ConfirmNumber> createState() => _ConfirmNumberState();
+  State<ConfirmEmail> createState() => _ConfirmEmailState();
 }
 
-class _ConfirmNumberState extends State<ConfirmNumber> {
+class _ConfirmEmailState extends State<ConfirmEmail> {
   late final VideoPlayerController _videoPlayerController;
+  final Authmethods authmethods = Authmethods();
+  final SignUpController controllerEmail = Get.find();
+  final TextEditingController _otpController = TextEditingController();
 
   @override
   void initState() {
@@ -25,6 +31,13 @@ class _ConfirmNumberState extends State<ConfirmNumber> {
             setState(() {});
           });
     super.initState();
+  }
+
+  void verifyEmailOtp() {
+    authmethods.confirmEmail(
+        context: context,
+        email: controllerEmail.emailController.text,
+        otp: _otpController.text);
   }
 
   @override
@@ -68,7 +81,7 @@ class _ConfirmNumberState extends State<ConfirmNumber> {
                   height: 60,
                 ),
                 const Text(
-                  'Enter confirmation code',
+                  'Enter confirmation code sent in your email',
                   style: TextStyle(
                     fontSize: 16,
                     color: Color(0xffFFFFFE),
@@ -76,7 +89,7 @@ class _ConfirmNumberState extends State<ConfirmNumber> {
                 ),
                 const SizedBox(height: 12),
                 const Text(
-                  'Enter the code we sent to +212 *****',
+                  'Enter the code we sent to ``****@gmail.com',
                   style: TextStyle(
                     fontSize: 14,
                     color: Color(0xff11F9EB),
@@ -95,6 +108,7 @@ class _ConfirmNumberState extends State<ConfirmNumber> {
                   },
                   pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                   showCursor: true,
+                  controller: _otpController,
                 ),
                 const SizedBox(
                   height: 50,
@@ -105,12 +119,12 @@ class _ConfirmNumberState extends State<ConfirmNumber> {
                   height: 42,
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.offAll(const CreateAvatarScreen());
+                      verifyEmailOtp();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xffAE2A58),
                     ),
-                    child: const Text('Resend  59'),
+                    child: const Text('Confirm code'),
                   ),
                 ),
               ],

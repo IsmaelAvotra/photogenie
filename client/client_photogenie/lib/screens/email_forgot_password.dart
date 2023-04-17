@@ -1,3 +1,4 @@
+import 'package:client_photogenie/controllers/sign_up_controller.dart';
 import 'package:client_photogenie/resources/auth_methods.dart';
 import 'package:client_photogenie/screens/confirm_identity.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class _EmailForgotPasswordScreenState extends State<EmailForgotPasswordScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   late final VideoPlayerController _videoPlayerController;
+  final ForgetPasswordController f = Get.put(ForgetPasswordController());
 
   final Authmethods authmethods = Authmethods();
 
@@ -47,9 +49,9 @@ class _EmailForgotPasswordScreenState extends State<EmailForgotPasswordScreen> {
     setState(() {
       isLoading = true;
     });
-    authmethods.forgotPassword(
+    authmethods.emailForgotPassword(
       context: context,
-      email: _emailController.text,
+      email: f.forgetEmailController.text,
     );
     setState(() {
       isLoading = false;
@@ -115,7 +117,7 @@ class _EmailForgotPasswordScreenState extends State<EmailForgotPasswordScreen> {
               TextFieldInput(
                 hintText: 'Enter your email',
                 textInputType: TextInputType.emailAddress,
-                textEditingController: _emailController,
+                textEditingController: f.forgetEmailController,
                 icon: 'email',
               ),
 

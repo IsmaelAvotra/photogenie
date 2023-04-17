@@ -89,7 +89,7 @@ class _SignUp2State extends State<SignUp2> {
       );
     }
     setState(() {
-      _isLoading = true;
+      _isLoading = false;
     });
   }
 

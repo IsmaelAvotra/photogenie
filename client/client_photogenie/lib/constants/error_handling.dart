@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:http/http.dart' as http;
 
 void httpErrorHandle({
@@ -8,11 +9,15 @@ void httpErrorHandle({
   required BuildContext context,
   required VoidCallback onSuccess,
 }) {
+  Logger().e(response.body);
   switch (jsonDecode(response.body)['status']) {
-    case 'success':
+    case 'PENDING':
       onSuccess();
       break;
-    case 'failed':
+    case 'Success':
+      onSuccess();
+      break;
+    case 'Failed':
       Get.snackbar(
         'Error',
         jsonDecode(response.body)['message'],
@@ -27,65 +32,5 @@ void httpErrorHandle({
         colorText: const Color(0xffFFFFFE),
       );
       break;
-    default:
-      Get.snackbar(
-        'Error',
-        jsonDecode(response.body)['message'],
-        backgroundColor: const Color(0xff0F0E17),
-        snackPosition: SnackPosition.BOTTOM,
-        titleText: const Text(
-          'Error occured',
-          style: TextStyle(
-              color: Color.fromARGB(255, 231, 224, 233),
-              fontWeight: FontWeight.bold),
-        ),
-        colorText: const Color(0xffFFFFFE),
-      );
-    // case 200:
-    //   onSuccess();
-    //   break;
-    // case 400:
-    //   Get.snackbar(
-    //     'about signup',
-    //     jsonDecode(response.body)['msg'],
-    //     backgroundColor: const Color(0xff0F0E17),
-    //     snackPosition: SnackPosition.BOTTOM,
-    //     titleText: const Text(
-    //       'SignUp Failed',
-    //       style: TextStyle(
-    //           color: Color.fromARGB(255, 231, 224, 233),
-    //           fontWeight: FontWeight.bold),
-    //     ),
-    //     colorText: const Color(0xffFFFFFE),
-    //   );
-    //   break;
-    // case 500:
-    //   Get.snackbar(
-    //     'about signup',
-    //     jsonDecode(response.body)['error'],
-    //     backgroundColor: const Color(0xff0F0E17),
-    //     snackPosition: SnackPosition.BOTTOM,
-    //     titleText: const Text(
-    //       'SignUp Failed',
-    //       style: TextStyle(
-    //           color: Color.fromARGB(255, 231, 224, 233),
-    //           fontWeight: FontWeight.bold),
-    //     ),
-    //     colorText: const Color(0xffFFFFFE),
-    //   );
-    //   break;
-    // default:
-    //   Get.snackbar(
-    //     'about signup',
-    //     response.body,
-    //     backgroundColor: const Color(0xff0F0E17),
-    //     snackPosition: SnackPosition.BOTTOM,
-    //     titleText: const Text(
-    //       'SignUp Failed',
-    //       style: TextStyle(
-    //           color: Color.fromARGB(255, 231, 224, 233),
-    //           fontWeight: FontWeight.bold),
-    //     ),
-    //   );
   }
 }

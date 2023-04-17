@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+import 'controllers/sign_up_controller.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
@@ -40,6 +42,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ForgetPasswordController());
     return GetMaterialApp(
       title: 'Photogenie application',
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty

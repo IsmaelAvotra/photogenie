@@ -1,9 +1,12 @@
+import 'package:client_photogenie/controllers/sign_up_controller.dart';
 import 'package:client_photogenie/screens/update_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:video_player/video_player.dart';
 import 'package:client_photogenie/utils/utils.dart';
+
+import '../resources/auth_methods.dart';
 
 class ConfirmIdentity extends StatefulWidget {
   const ConfirmIdentity({super.key});
@@ -14,6 +17,9 @@ class ConfirmIdentity extends StatefulWidget {
 
 class _ConfirmIdentityState extends State<ConfirmIdentity> {
   late final VideoPlayerController _videoPlayerController;
+  final Authmethods authmethods = Authmethods();
+  final TextEditingController _otpController = TextEditingController();
+  final ForgetPasswordController f = Get.find();
 
   @override
   void initState() {
@@ -25,6 +31,13 @@ class _ConfirmIdentityState extends State<ConfirmIdentity> {
             setState(() {});
           });
     super.initState();
+  }
+
+  void verifyOtp() {
+    authmethods.verifyCode(
+        context: context,
+        otp: _otpController.text,
+        email: f.forgetEmailController.text);
   }
 
   @override
@@ -100,6 +113,7 @@ class _ConfirmIdentityState extends State<ConfirmIdentity> {
                   },
                   pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                   showCursor: true,
+                  controller: _otpController,
                 ),
                 const SizedBox(
                   height: 50,
@@ -110,7 +124,7 @@ class _ConfirmIdentityState extends State<ConfirmIdentity> {
                   height: 42,
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.to(const UpdatePasswordScreen());
+                      verifyOtp();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xffAE2A58),

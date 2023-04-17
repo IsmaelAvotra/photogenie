@@ -23,7 +23,7 @@ class _BottomBarState extends State<BottomBar> {
     const CameraScreen(),
     const ImageScreen(),
     const ReadyPlayerMe(),
-    const ProfilePage(),
+    const ProfileScreen(),
   ];
 
   void updatePage(int page) {

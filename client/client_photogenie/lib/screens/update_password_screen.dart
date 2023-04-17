@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:client_photogenie/widgets/text_button.dart';
 import 'package:client_photogenie/widgets/text_field_input.dart';
+import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
+
+import '../controllers/sign_up_controller.dart';
+import '../resources/auth_methods.dart';
 
 class UpdatePasswordScreen extends StatefulWidget {
   const UpdatePasswordScreen({super.key});
@@ -11,9 +15,12 @@ class UpdatePasswordScreen extends StatefulWidget {
 }
 
 class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _confirmNewPasswordController =
+      TextEditingController();
   late final VideoPlayerController _videoPlayerController;
+  final Authmethods authmethods = Authmethods();
+  final ForgetPasswordController controllerEmail = Get.find();
 
   bool isLoading = false;
 
@@ -29,11 +36,23 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
     super.initState();
   }
 
+  void updatePassword() {
+    setState(() {
+      isLoading = true;
+    });
+    authmethods.updatePassword(
+        context: context,
+        email: controllerEmail.forgetEmailController.text,
+        newPassword: _newPasswordController.text);
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   @override
   void dispose() {
     super.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
+    _newPasswordController.dispose();
     _videoPlayerController.dispose();
   }
 
@@ -73,7 +92,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
               TextFieldInput(
                 hintText: 'Enter your new password',
                 textInputType: TextInputType.emailAddress,
-                textEditingController: _emailController,
+                textEditingController: _newPasswordController,
                 icon: 'password',
               ),
               const SizedBox(
@@ -82,7 +101,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
               TextFieldInput(
                 hintText: 'Confirm your new password',
                 textInputType: TextInputType.emailAddress,
-                textEditingController: _emailController,
+                textEditingController: _confirmNewPasswordController,
                 icon: 'password',
               ),
 
@@ -91,7 +110,20 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
               ),
               //Login button
               ButtonText(
-                function: () {},
+                function: () {
+                  if (_newPasswordController.text !=
+                      _confirmNewPasswordController.text) {
+                    Get.snackbar(
+                      'Error',
+                      'Password does not match',
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: Colors.red,
+                      colorText: Colors.white,
+                    );
+                  } else {
+                    updatePassword();
+                  }
+                },
                 text: 'Update Password',
                 width: 240,
                 isLoading: isLoading,

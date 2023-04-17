@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'package:client_photogenie/constants/global_variables.dart';
 import 'package:client_photogenie/models/user_model.dart';
 import 'package:client_photogenie/screens/confirm_identity.dart';
-import 'package:client_photogenie/screens/confirm_phone_number.dart';
+import 'package:client_photogenie/screens/confirm_email.dart';
+import 'package:client_photogenie/screens/create_avatar.dart';
 import 'package:client_photogenie/screens/sign_in_screen.dart';
+import 'package:client_photogenie/screens/update_password_screen.dart';
 import 'package:client_photogenie/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -65,7 +67,7 @@ class Authmethods {
             ),
             colorText: const Color(0xffFFFFFE),
           );
-          Get.offAll(() => const ConfirmNumber());
+          Get.offAll(() => const ConfirmEmail());
         },
       );
     } catch (e) {
@@ -120,6 +122,57 @@ class Authmethods {
         snackPosition: SnackPosition.BOTTOM,
         titleText: const Text(
           'Sign in failed',
+          style: TextStyle(
+              color: Color.fromARGB(255, 231, 224, 233),
+              fontWeight: FontWeight.bold),
+        ),
+        colorText: const Color(0xffFFFFFE),
+      );
+    }
+  }
+
+  //confirm email
+  void confirmEmail({
+    required context,
+    required String email,
+    required String otp,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/api/verifySignupOtp'),
+        body: jsonEncode(<String, String>{'email': email, 'otp': otp}),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () async {
+          Get.snackbar(
+            'About confirm email',
+            " Your account is confirmed",
+            backgroundColor: const Color(0xff0F0E17),
+            snackPosition: SnackPosition.BOTTOM,
+            titleText: const Text(
+              "Account is confirmed",
+              style: TextStyle(
+                  color: Color.fromARGB(255, 231, 224, 233),
+                  fontWeight: FontWeight.bold),
+            ),
+            colorText: const Color(0xffFFFFFE),
+          );
+          Get.offAll(() => const CreateAvatarScreen());
+        },
+      );
+    } catch (e) {
+      Get.snackbar(
+        'About confirm email',
+        e.toString(),
+        backgroundColor: const Color(0xff0F0E17),
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: const Text(
+          'About confirm email',
           style: TextStyle(
               color: Color.fromARGB(255, 231, 224, 233),
               fontWeight: FontWeight.bold),
@@ -204,7 +257,7 @@ class Authmethods {
   }
 
   //forgot password
-  void forgotPassword({
+  void emailForgotPassword({
     required context,
     required String email,
   }) async {
@@ -236,7 +289,118 @@ class Authmethods {
             ),
             colorText: const Color(0xffFFFFFE),
           );
+          debugPrint(res.body);
           Get.offAll(() => const ConfirmIdentity());
+        },
+      );
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        e.toString(),
+        backgroundColor: const Color(0xff0F0E17),
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: const Text(
+          'Error',
+          style: TextStyle(
+              color: Color.fromARGB(255, 231, 224, 233),
+              fontWeight: FontWeight.bold),
+        ),
+        colorText: const Color(0xffFFFFFE),
+      );
+    }
+  }
+
+  //verify code
+  void verifyCode({
+    required context,
+    required String otp,
+    required String email,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/api/verifyEmailOtp'),
+        body: jsonEncode(<String, String>{
+          'otp': otp,
+          'email': email,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () async {
+          Get.snackbar(
+            'Success',
+            jsonDecode(res.body)['message'],
+            backgroundColor: const Color(0xff0F0E17),
+            snackPosition: SnackPosition.BOTTOM,
+            titleText: const Text(
+              'Success',
+              style: TextStyle(
+                  color: Color.fromARGB(255, 231, 224, 233),
+                  fontWeight: FontWeight.bold),
+            ),
+            colorText: const Color(0xffFFFFFE),
+          );
+          Get.offAll(() => const UpdatePasswordScreen());
+        },
+      );
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        e.toString(),
+        backgroundColor: const Color(0xff0F0E17),
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: const Text(
+          'Error',
+          style: TextStyle(
+              color: Color.fromARGB(255, 231, 224, 233),
+              fontWeight: FontWeight.bold),
+        ),
+        colorText: const Color(0xffFFFFFE),
+      );
+    }
+  }
+
+  //update password
+  void updatePassword({
+    required context,
+    required String newPassword,
+    required String email,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/api/resetPasswordByDigits'),
+        body: jsonEncode(<String, String>{
+          'newPassword': newPassword,
+          'email': email,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () async {
+          Get.snackbar(
+            'Success',
+            jsonDecode(res.body)['message'],
+            backgroundColor: const Color(0xff0F0E17),
+            snackPosition: SnackPosition.BOTTOM,
+            titleText: const Text(
+              'Success',
+              style: TextStyle(
+                  color: Color.fromARGB(255, 231, 224, 233),
+                  fontWeight: FontWeight.bold),
+            ),
+            colorText: const Color(0xffFFFFFE),
+          );
+          Get.offAll(() => const SignInScreen());
         },
       );
     } catch (e) {
