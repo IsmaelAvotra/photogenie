@@ -21,15 +21,17 @@ class _PhotoScreenState extends State<PhotoScreen> {
         child: Column(
           children: [
             const SizedBox(
-              height: 220,
+              height: 200,
             ),
-            Container(
-              width: double.infinity,
-              height: 350,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(widget.photo.imageUrl),
-                  fit: BoxFit.cover,
+            SingleChildScrollView(
+              child: Container(
+                width: double.infinity,
+                height: 350,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(widget.photo.imageUrl),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

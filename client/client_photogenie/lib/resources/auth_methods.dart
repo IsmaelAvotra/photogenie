@@ -26,7 +26,7 @@ class Authmethods {
     required String birthday,
     required String email,
     required String username,
-    required String phone,
+    required String number,
     required String country,
   }) async {
     try {
@@ -39,7 +39,7 @@ class Authmethods {
           birthday: birthday,
           username: username,
           country: country,
-          phone: phone,
+          phone: number,
           password: password);
 
       http.Response res = await http.post(
@@ -421,20 +421,46 @@ class Authmethods {
   }
 
   //logout user
-  void logoutUser(BuildContext context) async {
+  void logoutUser({
+    required context,
+    required email,
+    required refreshToken,
+  }) async {
     try {
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      await sharedPreferences.setString('x-auth-token', '');
-      Get.offAll(() => const SignInScreen());
+      http.Response res = await http.post(
+        Uri.parse('$uri/api/signout'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () async {
+          Get.snackbar(
+            'Success',
+            jsonDecode(res.body)['message'],
+            backgroundColor: const Color(0xff0F0E17),
+            snackPosition: SnackPosition.BOTTOM,
+            titleText: const Text(
+              'Success',
+              style: TextStyle(
+                  color: Color.fromARGB(255, 231, 224, 233),
+                  fontWeight: FontWeight.bold),
+            ),
+            colorText: const Color(0xffFFFFFE),
+          );
+          Get.offAll(() => const SignInScreen());
+        },
+      );
     } catch (e) {
       Get.snackbar(
-        'Logout',
+        'Error',
         e.toString(),
         backgroundColor: const Color(0xff0F0E17),
         snackPosition: SnackPosition.BOTTOM,
         titleText: const Text(
-          'Logout',
+          'Error',
           style: TextStyle(
               color: Color.fromARGB(255, 231, 224, 233),
               fontWeight: FontWeight.bold),

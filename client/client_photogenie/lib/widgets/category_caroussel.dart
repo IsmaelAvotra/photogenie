@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../models/caroussel_model.dart';
 
 class CategoryCaroussel extends StatelessWidget {

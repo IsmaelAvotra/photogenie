@@ -185,13 +185,11 @@ class ImageLoaded extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 196.0,
-        height: 196.0,
-        child: ClipOval(
-          child: Image.file(
-            file,
-            fit: BoxFit.fitWidth,
-          ),
+        width: double.infinity,
+        height: 350,
+        child: Image.file(
+          file,
+          fit: BoxFit.fitWidth,
         ),
       ),
     );

@@ -70,7 +70,7 @@ class _SignUp2State extends State<SignUp2> {
         birthday: c.birthdayController.text,
         email: c.emailController.text,
         country: selectCountry,
-        phone: '+$codeCountry ${_phoneController.text}',
+        number: '+$codeCountry ${_phoneController.text}',
         username: c.usernameController.text,
       );
     } else {
@@ -230,12 +230,12 @@ class _SignUp2State extends State<SignUp2> {
                 height: 40,
               ),
 
-              //confirm phone number button
+              //sign up button
               ButtonText(
                   function: () {
                     signUpUser();
                   },
-                  text: 'Confirm phone number',
+                  text: 'Sign Up',
                   isLoading: _isLoading,
                   width: 240)
             ],
