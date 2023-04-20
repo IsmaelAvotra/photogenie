@@ -47,11 +47,11 @@ class User {
       email: map['email'] ?? '',
       password: map['password'] ?? '',
       token: map['token'] ?? '',
-      birthday:map['birthday'] ?? '',
-      country:map['country'] ?? '',
-      lastname:map['lastname'] ?? '',
-      phone:map['phone'] ?? '',
-      username:map['username'] ?? '',
+      birthday: map['birthday'] ?? '',
+      country: map['country'] ?? '',
+      lastname: map['lastname'] ?? '',
+      phone: map['number'] ?? '',
+      username: map['username'] ?? '',
     );
   }
 

@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'package:client_photogenie/constants/global_variables.dart';
-import 'package:client_photogenie/models/user_model.dart';
-import 'package:client_photogenie/screens/confirm_identity.dart';
-import 'package:client_photogenie/screens/confirm_email.dart';
-import 'package:client_photogenie/screens/create_avatar.dart';
-import 'package:client_photogenie/screens/sign_in_screen.dart';
-import 'package:client_photogenie/screens/update_password_screen.dart';
+import 'package:client_photogenie/screens/forgotpassword/confirm_identity.dart';
+import 'package:client_photogenie/screens/signup/confirm_email.dart';
+import 'package:client_photogenie/screens/signin/sign_in_screen.dart';
+import 'package:client_photogenie/screens/forgotpassword/update_password_screen.dart';
 import 'package:client_photogenie/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,25 +24,22 @@ class Authmethods {
     required String birthday,
     required String email,
     required String username,
-    required String number,
+    required String phone,
     required String country,
   }) async {
     try {
-      User user = User(
-          token: '',
-          name: name,
-          lastname: lastname,
-          email: email,
-          id: '',
-          birthday: birthday,
-          username: username,
-          country: country,
-          phone: number,
-          password: password);
-
       http.Response res = await http.post(
         Uri.parse('$uri/api/signup'),
-        body: user.toJson(),
+        body: jsonEncode(<String, String>{
+          'name': name,
+          'lastname': lastname,
+          'password': password,
+          'birthday': birthday,
+          'email': email,
+          'username': username,
+          'country': country,
+          'number': phone,
+        }),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -56,7 +51,7 @@ class Authmethods {
         onSuccess: () async {
           Get.snackbar(
             'About signup',
-            "Your account is created",
+            "Your account is created, please confirm your email",
             backgroundColor: const Color(0xff0F0E17),
             snackPosition: SnackPosition.BOTTOM,
             titleText: const Text(
@@ -151,7 +146,7 @@ class Authmethods {
         onSuccess: () async {
           Get.snackbar(
             'About confirm email',
-            " Your account is confirmed",
+            " Your account is confirmed, Please sign in",
             backgroundColor: const Color(0xff0F0E17),
             snackPosition: SnackPosition.BOTTOM,
             titleText: const Text(
@@ -162,7 +157,7 @@ class Authmethods {
             ),
             colorText: const Color(0xffFFFFFE),
           );
-          Get.offAll(() => const CreateAvatarScreen());
+          Get.offAll(() => const SignInScreen());
         },
       );
     } catch (e) {
