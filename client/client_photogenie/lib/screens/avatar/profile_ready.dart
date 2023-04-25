@@ -87,7 +87,7 @@ class _ProfileState extends State<Profile> {
         height: 200,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: const [
             Text.rich(
               TextSpan(
                 text: 'Roberty Joe ',
@@ -98,7 +98,7 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-            const SizedBox(height: 4),
+            SizedBox(height: 4),
             Text(
               'robertyjoe@artist.com',
               style: TextStyle(
@@ -106,7 +106,7 @@ class _ProfileState extends State<Profile> {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             Text(
               'Robery Joe is a 3D artist and '
               'designer based in New York City. '

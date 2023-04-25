@@ -1,11 +1,12 @@
 import 'package:client_photogenie/screens/bottombar/gallery_screen.dart';
 import 'package:client_photogenie/screens/bottombar/pick_photo_screen.dart';
-import 'package:client_photogenie/screens/bottombar/profile_screen.dart';
-import 'package:client_photogenie/screens/avatar/ready_player.dart';
+import 'package:client_photogenie/screens/camera/camera_fiter.dart';
+// import 'package:client_photogenie/screens/bottombar/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/camera/camera_deepar.dart';
+import '../screens/profile_page.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
@@ -22,7 +23,7 @@ class _BottomBarState extends State<BottomBar> {
   final List<Widget> _pages = <Widget>[
     const GalleryPage(),
     const Camera(),
-    const ImageScreen(),
+    const CameraFilter(),
     const ImageScreen(),
     const ProfilePage(),
   ];

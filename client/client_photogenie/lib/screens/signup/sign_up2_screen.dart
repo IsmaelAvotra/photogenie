@@ -73,7 +73,6 @@ class _SignUp2State extends State<SignUp2> {
         phone: '+$codeCountry ${_phoneController.text}',
         username: c.usernameController.text,
       );
-      print('phone: +$codeCountry ${_phoneController.text}');
     } else {
       Get.snackbar(
         'About signup',

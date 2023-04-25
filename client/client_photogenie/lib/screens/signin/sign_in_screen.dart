@@ -5,8 +5,6 @@ import 'package:client_photogenie/widgets/text_button.dart';
 import 'package:client_photogenie/widgets/text_field_input.dart';
 import 'package:video_player/video_player.dart';
 import 'package:client_photogenie/screens/forgotpassword/email_forgot_password.dart';
-
-
 import '../../resources/auth_methods.dart';
 
 class SignInScreen extends StatefulWidget {

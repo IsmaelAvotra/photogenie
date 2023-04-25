@@ -38,9 +38,14 @@ dependencies:
   get_it: ^7.2.0
   webview_flutter: ^3.0.4
   logger: ^1.3.0
-  flutter_native_splash: ^2.2.19
+  # flutter_native_splash: ^2.2.19
   deepar_flutter: ^0.0.5
   toggle_switch: ^2.0.1
+  model_viewer_plus: ^1.5.0
+  photofilters: ^3.0.1
+  image_picker: ^0.8.7+3
+  image: ^3.3.0
+  path: ^1.8.2
 flutter_native_splash:
   image: assets/images/logo.png
   background_image: assets/images/splash.jpg

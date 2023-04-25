@@ -1,7 +1,6 @@
 
 import 'package:client_photogenie/controllers/sign_up_controller.dart';
 import 'package:client_photogenie/resources/auth_methods.dart';
-import 'package:client_photogenie/screens/forgotpassword/confirm_identity.dart';
 import 'package:flutter/material.dart';
 import 'package:client_photogenie/widgets/text_button.dart';
 import 'package:client_photogenie/widgets/text_field_input.dart';

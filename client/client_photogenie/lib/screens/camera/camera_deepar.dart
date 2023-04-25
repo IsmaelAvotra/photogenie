@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:deepar_flutter/deepar_flutter.dart';
 // import 'package:open_file/open_file.dart';
@@ -86,7 +85,7 @@ class _HomeState extends State<Home> {
             _controller,
             onViewCreated: () {
               // set any initial effect, filter etc
-              _controller.switchEffect('${_assetEffectsPath}Hope.deepar');
+              _controller.switchEffect('${_assetEffectsPath}o.deepar');
             },
           ),
         ),
@@ -198,7 +197,7 @@ class _HomeState extends State<Home> {
             IconButton(
                 onPressed: () async {
                   if (_controller.isRecording) {
-                    File? file = await _controller.stopVideoRecording();
+                    // File? file = await _controller.stopVideoRecording();
                     // OpenFile.open(file.path);
                   } else {
                     await _controller.startVideoRecording();
