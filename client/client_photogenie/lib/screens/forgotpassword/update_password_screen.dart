@@ -94,6 +94,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                 textInputType: TextInputType.emailAddress,
                 textEditingController: _newPasswordController,
                 icon: 'password',
+                isPass: true,
               ),
               const SizedBox(
                 height: 24,
@@ -103,6 +104,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                 textInputType: TextInputType.emailAddress,
                 textEditingController: _confirmNewPasswordController,
                 icon: 'password',
+                isPass: true,
               ),
 
               const SizedBox(

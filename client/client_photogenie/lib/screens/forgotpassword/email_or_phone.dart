@@ -1,5 +1,11 @@
+import 'package:client_photogenie/resources/auth_methods.dart';
+import 'package:client_photogenie/widgets/text_button.dart';
+import 'package:client_photogenie/widgets/text_field_input.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
+
+import '../../controllers/sign_up_controller.dart';
 
 class EmailOrPhone extends StatefulWidget {
   const EmailOrPhone({super.key});
@@ -10,6 +16,11 @@ class EmailOrPhone extends StatefulWidget {
 
 class _EmailOrPhoneState extends State<EmailOrPhone> {
   late final VideoPlayerController _videoPlayerController;
+  final ForgetPasswordController f = Get.put(ForgetPasswordController());
+  final TextEditingController _phoneController = TextEditingController();
+  int mode = 0;
+  bool isLoading = false;
+  final Authmethods authmethods = Authmethods();
 
   @override
   void initState() {
@@ -27,6 +38,21 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
   void dispose() {
     super.dispose();
     _videoPlayerController.dispose();
+    f.forgetEmailController.dispose();
+    _phoneController.dispose();
+  }
+
+  void forgotPassword() {
+    setState(() {
+      isLoading = true;
+    });
+    authmethods.emailForgotPassword(
+      context: context,
+      email: f.forgetEmailController.text,
+    );
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -45,21 +71,159 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 70,
-                ),
-                Image.asset(
-                  'assets/images/logo.png',
-                  width: 170,
-                  height: 230,
-                ),
-              ],
+          SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 70,
+                  ),
+                  Image.asset(
+                    'assets/images/logo.png',
+                    width: 170,
+                    height: 230,
+                  ),
+                  const SizedBox(
+                    height: 70,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 350,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.transparent,
+                        border: Border.all(
+                          color: const Color(0xffB4CDED),
+                          width: 1,
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    mode = 1;
+                                  });
+                                },
+                                child: SizedBox(
+                                  width: 160,
+                                  height: 40,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(12),
+                                      ),
+                                      border: mode == 1
+                                          ? Border.all(
+                                              color: const Color(0xffB4CDED),
+                                              width: 1,
+                                            )
+                                          : null,
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        'With phone',
+                                        style: TextStyle(
+                                          color: Color(0xfffffffe),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    mode = 0;
+                                  });
+                                },
+                                child: SizedBox(
+                                  width: 160,
+                                  height: 40,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.only(
+                                        topRight: Radius.circular(12),
+                                      ),
+                                      border: mode == 0
+                                          ? Border.all(
+                                              color: const Color(0xffB4CDED),
+                                              width: 1,
+                                            )
+                                          : null,
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        'With email',
+                                        style: TextStyle(
+                                          color: Color(0xfffffffe),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 3),
+                            child: Text(
+                              'Please enter the ${mode == 0 ? 'email' : 'phone number'} associated with your account to confirm your identity.',
+                              style: const TextStyle(
+                                  color: Color(0xf2fffffe), fontSize: 14),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          SizedBox(
+                            height: 40,
+                            width: 290,
+                            child: TextFieldInput(
+                              hintText: mode == 0
+                                  ? 'Enter your email'
+                                  : 'Enter your phone number',
+                              icon: mode == 0 ? 'email' : 'Phone',
+                              textEditingController: mode == 0
+                                  ? f.forgetEmailController
+                                  : _phoneController,
+                              textInputType: mode == 0
+                                  ? TextInputType.emailAddress
+                                  : TextInputType.phone,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          ButtonText(
+                              function: () {
+                                forgotPassword();
+                              },
+                              text: mode == 0
+                                  ? 'Confirm email'
+                                  : 'Confirm phone number',
+                              isLoading: false,
+                              width: 240)
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           )
         ],

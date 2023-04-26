@@ -1,10 +1,10 @@
+import 'package:client_photogenie/screens/forgotpassword/email_or_phone.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:client_photogenie/screens/signup/sign_up_screen.dart';
 import 'package:client_photogenie/widgets/text_button.dart';
 import 'package:client_photogenie/widgets/text_field_input.dart';
 import 'package:video_player/video_player.dart';
-import 'package:client_photogenie/screens/forgotpassword/email_forgot_password.dart';
 import '../../resources/auth_methods.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -116,7 +116,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(() => const EmailForgotPasswordScreen());
+                    Get.to(() => const EmailOrPhone());
                   },
                   child: const Text(
                     'Forgot Password ?',
