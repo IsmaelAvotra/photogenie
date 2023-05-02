@@ -105,68 +105,70 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
                         children: [
                           Row(
                             children: [
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    mode = 1;
-                                  });
-                                },
-                                child: SizedBox(
-                                  width: 160,
-                                  height: 40,
-                                  child: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(12),
+                              Expanded(
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      mode = 1;
+                                    });
+                                  },
+                                  child: SizedBox(
+                                    height: 40,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(12),
+                                        ),
+                                        border: mode == 1
+                                            ? Border.all(
+                                                color: const Color(0xffB4CDED),
+                                                width: 1,
+                                              )
+                                            : null,
                                       ),
-                                      border: mode == 1
-                                          ? Border.all(
-                                              color: const Color(0xffB4CDED),
-                                              width: 1,
-                                            )
-                                          : null,
-                                    ),
-                                    child: const Center(
-                                      child: Text(
-                                        'With phone',
-                                        style: TextStyle(
-                                          color: Color(0xfffffffe),
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
+                                      child: const Center(
+                                        child: Text(
+                                          'With phone',
+                                          style: TextStyle(
+                                            color: Color(0xfffffffe),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    mode = 0;
-                                  });
-                                },
-                                child: SizedBox(
-                                  width: 160,
-                                  height: 40,
-                                  child: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.only(
-                                        topRight: Radius.circular(12),
+                              Expanded(
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      mode = 0;
+                                    });
+                                  },
+                                  child: SizedBox(
+                                    height: 40,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(12),
+                                        ),
+                                        border: mode == 0
+                                            ? Border.all(
+                                                color: const Color(0xffB4CDED),
+                                                width: 1,
+                                              )
+                                            : null,
                                       ),
-                                      border: mode == 0
-                                          ? Border.all(
-                                              color: const Color(0xffB4CDED),
-                                              width: 1,
-                                            )
-                                          : null,
-                                    ),
-                                    child: const Center(
-                                      child: Text(
-                                        'With email',
-                                        style: TextStyle(
-                                          color: Color(0xfffffffe),
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
+                                      child: const Center(
+                                        child: Text(
+                                          'With email',
+                                          style: TextStyle(
+                                            color: Color(0xfffffffe),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       ),
                                     ),

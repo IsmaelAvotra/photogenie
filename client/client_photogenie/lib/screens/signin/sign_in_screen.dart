@@ -161,7 +161,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     icon: Image.asset('assets/icons/gmail.png'),
                     label: const Text(
-                      'Sign In with Google',
+                      'Sign in with Google',
                       style: TextStyle(color: Color(0xff0D0319)),
                     ),
                   ),
