@@ -40,13 +40,13 @@ class _BottomBarState extends State<BottomBar> {
               color: const Color.fromARGB(255, 3, 1, 15),
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 child: GNav(
                   backgroundColor: const Color.fromARGB(255, 3, 1, 15),
                   color: const Color(0x80fffffe),
                   tabBackgroundColor: const Color(0xffAE2A58),
                   gap: 8,
-                  padding: const EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(8),
                   activeColor: const Color(0xfffffffe),
                   onTabChange: (page) {
                     updatePage(page);
